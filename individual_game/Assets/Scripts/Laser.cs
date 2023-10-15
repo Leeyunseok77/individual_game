@@ -41,7 +41,7 @@ public class Laser : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))  
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             if (!isShooting)
             {
@@ -49,7 +49,7 @@ public class Laser : MonoBehaviour
                 isShooting = true;
             }
         }
-        else if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Space)) 
+        else if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Space))
         {
             if (isShooting)
             {
@@ -72,9 +72,16 @@ public class Laser : MonoBehaviour
 
             _hitParticles.transform.position = hitPosition;
 
-            if (cast && hit.collider.TryGetComponent(out Damageable damageable))
+            if (cast)
             {
-                damageable.ApplyDamage(_damage * Time.fixedDeltaTime);
+                if (hit.collider.TryGetComponent(out Damageable damageable))
+                {
+                    damageable.ApplyDamage(_damage * Time.fixedDeltaTime);
+                }
+                else if (hit.collider.CompareTag("BreakableWall"))
+                {
+                    hit.collider.GetComponent<BreakableWall>().BreakWall(_damage * Time.fixedDeltaTime); // 'damage' 값을 전달
+                }
             }
         }
     }
