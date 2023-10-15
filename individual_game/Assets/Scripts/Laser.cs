@@ -13,6 +13,8 @@ public class Laser : MonoBehaviour
 
     [SerializeField] private float _damage;
 
+    [SerializeField] private AudioSource laserSound; // 레이저 사운드를 재생하기 위한 Audio Source
+
     private bool isShooting = false; // 공격 중인지 여부를 나타내는 변수
 
     private void Awake()
@@ -26,6 +28,9 @@ public class Laser : MonoBehaviour
 
         _muzzleParticles.Play();
         _hitParticles.Play();
+
+        // 레이저 사운드 재생
+        laserSound.Play();
     }
 
     private void Deactivate()
@@ -37,6 +42,9 @@ public class Laser : MonoBehaviour
 
         _muzzleParticles.Stop();
         _hitParticles.Stop();
+
+        // 레이저 사운드 정지
+        laserSound.Stop();
     }
 
     private void Update()
@@ -80,7 +88,7 @@ public class Laser : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("BreakableWall"))
                 {
-                    hit.collider.GetComponent<BreakableWall>().BreakWall(_damage * Time.fixedDeltaTime); // 'damage' 값을 전달
+                    hit.collider.GetComponent<BreakableWall>().BreakWall(_damage * Time.fixedDeltaTime);
                 }
             }
         }

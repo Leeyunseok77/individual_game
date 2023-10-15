@@ -10,6 +10,7 @@ TagManager:
   - LevelPart
   - Dummie
   - BreakableWall
+  - girlfriend22
   layers:
   - Default
   - TransparentFX

@@ -420,6 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialHealth: 10
+  deathSound: {fileID: 0}
 --- !u!195 &486106001673393405
 NavMeshAgent:
   m_ObjectHideFlags: 0
