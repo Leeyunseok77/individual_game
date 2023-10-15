@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
     // 몬스터가 출현할 위치를 저장할 List 타입 변수
@@ -24,9 +25,16 @@ public class GameManager : MonoBehaviour
                 CancelInvoke("CreateMonster");
             }
         }
+
     }
+
+    public GameObject monster1Prefab; // 첫 번째 몬스터 프리팹
+    public GameObject monster2Prefab; // 두 번째 몬스터 프리팹
+    public GameObject monster3Prefab; // 세 번째 몬스터 프리팹
+
     // 싱글턴 인스턴스 선언
     public static GameManager instance = null;
+
     // 스크립트가 실행되면 가장 먼저 호출되는 유니티 이벤트 함수
     void Awake()
     {
@@ -57,11 +65,27 @@ public class GameManager : MonoBehaviour
         // 일정한 시간 간격으로 함수를 호출
         InvokeRepeating("CreateMonster", 2.0f, createTime);
     }
+
     void CreateMonster()
     {
-        // 몬스터의 불규칙한 생성 위치 산출
+        int monsterType = Random.Range(1, 4); // 1, 2, 3 중 하나를 무작위로 선택
+
+        GameObject monsterPrefab;
+
+        if (monsterType == 1)
+        {
+            monsterPrefab = monster1Prefab;
+        }
+        else if (monsterType == 2)
+        {
+            monsterPrefab = monster2Prefab;
+        }
+        else
+        {
+            monsterPrefab = monster3Prefab;
+        }
+
         int idx = Random.Range(0, points.Count);
-        // 몬스터 프리팹 생성
-        Instantiate(monster, points[idx].position, points[idx].rotation);
+        Instantiate(monsterPrefab, points[idx].position, points[idx].rotation);
     }
 }
