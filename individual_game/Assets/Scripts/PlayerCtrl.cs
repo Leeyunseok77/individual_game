@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCtrl : MonoBehaviour
 {
@@ -43,6 +44,14 @@ public class PlayerCtrl : MonoBehaviour
                 anim.SetBool("Run", false); // "Run" 파라미터를 false로 설정
                 isMoving = false;
             }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Monster"))
+        {
+            // 원하는 씬으로 전환
+            SceneManager.LoadScene("End2"); // "End2"는 전환할 씬의 이름입니다.
         }
     }
 }

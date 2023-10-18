@@ -13,25 +13,25 @@ public class Damageable : MonoBehaviour
 
     private bool isMonsterDead = false;
 
-    private Animator animator; // ¾Ö´Ï¸ŞÀÌÅÍ ÄÄÆ÷³ÍÆ®
+    private Animator animator; // ì• ë‹ˆë©”ì´í„° ì»´í¬ë„ŒíŠ¸
 
     private void Awake()
     {
         _currentHealth = _initialHealth;
 
-        // NavMeshAgent ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+        // NavMeshAgent ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
         navMeshAgent = GetComponent<NavMeshAgent>();
 
-        // ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ® ¶Ç´Â ÇÃ·¹ÀÌ¾î Æ®·£½ºÆû °¡Á®¿À±â
+        // í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ ë˜ëŠ” í”Œë ˆì´ì–´ íŠ¸ëœìŠ¤í¼ ê°€ì ¸ì˜¤ê¸°
         playerTransform = GameObject.FindWithTag("Player").transform;
 
-        // NavMeshAgentÀÇ ¸ñÇ¥¸¦ ÇÃ·¹ÀÌ¾î·Î ¼³Á¤
+        // NavMeshAgentì˜ ëª©í‘œë¥¼ í”Œë ˆì´ì–´ë¡œ ì„¤ì •
         if (navMeshAgent && playerTransform)
         {
             navMeshAgent.SetDestination(playerTransform.position);
         }
 
-        // ¾Ö´Ï¸ŞÀÌÅÍ ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+        // ì• ë‹ˆë©”ì´í„° ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
         animator = GetComponent<Animator>();
     }
 
@@ -50,16 +50,16 @@ public class Damageable : MonoBehaviour
 
     private void Destruct()
     {
-        // "Die" ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Àç»ı
+        // "Die" ì• ë‹ˆë©”ì´ì…˜ì„ ì¬ìƒ
         animator.SetBool("Die", true);
 
-        // ÀÏÁ¤ ½Ã°£ ÈÄ ¸ó½ºÅÍ Á¦°Å
+        // ì¼ì • ì‹œê°„ í›„ ëª¬ìŠ¤í„° ì œê±°
         StartCoroutine(DestroyAfterAnimation());
     }
 
     private IEnumerator DestroyAfterAnimation()
     {
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ±æÀÌ¸¦ ±â´Ù¸° ÈÄ ¸ó½ºÅÍ Á¦°Å
+        // ì• ë‹ˆë©”ì´ì…˜ ê¸¸ì´ë¥¼ ê¸°ë‹¤ë¦° í›„ ëª¬ìŠ¤í„° ì œê±°
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
         Destroy(gameObject);
     }
@@ -68,15 +68,15 @@ public class Damageable : MonoBehaviour
     {
         if (isMonsterDead)
         {
-            // ¸ó½ºÅÍ°¡ Á×¾úÀ» ¶§ "Die" ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+            // ëª¬ìŠ¤í„°ê°€ ì£½ì—ˆì„ ë•Œ "Die" ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
             animator.SetBool("Die", true);
-            animator.SetBool("Run", false); // ÃßÀû Áß´Ü
+            animator.SetBool("Run", false); // ì¶”ì  ì¤‘ë‹¨
         }
         else
         {
             if (navMeshAgent && playerTransform)
             {
-                // ¸ó½ºÅÍ°¡ »ì¾Æ ÀÖ°í ÇÃ·¹ÀÌ¾î°¡ »ì¾Æ ÀÖÀ¸¸é "Run" ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+                // ëª¬ìŠ¤í„°ê°€ ì‚´ì•„ ìˆê³  í”Œë ˆì´ì–´ê°€ ì‚´ì•„ ìˆìœ¼ë©´ "Run" ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
                 navMeshAgent.SetDestination(playerTransform.position);
                 animator.SetBool("Die", false);
                 animator.SetBool("Run", true);
