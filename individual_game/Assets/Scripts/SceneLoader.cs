@@ -7,6 +7,6 @@ public class SceneLoader : MonoBehaviour
 {
     public void LoadGameScene()
     {
-        SceneManager.LoadScene("Game"); // "Game"은 Game 씬의 이름이어야 합니다.
+        SceneManager.LoadScene("Game"); // 넘어가고 싶은 씬이름을 넣어주세용
     }
 }
